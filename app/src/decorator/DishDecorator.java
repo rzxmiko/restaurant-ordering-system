@@ -3,7 +3,7 @@ package decorator;
 import factory.Dish;
 
 public abstract class DishDecorator implements Dish {
-    protected Dish dish;
+    protected final Dish dish;
 
     public DishDecorator(Dish dish) {
         this.dish = dish;
