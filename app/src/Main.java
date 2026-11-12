@@ -6,6 +6,14 @@ import factory.Dish;
 import factory.DishCreator;
 import factory.PastaCreator;
 import factory.PizzaCreator;
+import observer.CustomerObserver;
+import observer.KitchenObserver;
+import observer.Order;
+import observer.OrderStatus;
+import strategy.CardPayment;
+import strategy.CashPayment;
+import strategy.PaymentProcessor;
+import strategy.PromoCodePayment;
 
 public class Main {
     public static void main(String[] args) {
@@ -28,6 +36,27 @@ public class Main {
         print("With extras:", pizzaWithExtras);
         print("With extras:", burgerWithExtras);
         print("With extras:", pastaWithSauce);
+
+        // ===== Observer: статус заказа =====
+        System.out.println("\n--- Observer ---");
+        Order order = new Order(1, pizzaWithExtras);
+        order.attach(new KitchenObserver());
+        order.attach(new CustomerObserver("Zhanbota"));
+
+        order.setStatus(OrderStatus.ACCEPTED);
+        order.setStatus(OrderStatus.PREPARING);
+        order.setStatus(OrderStatus.READY);
+
+        // ===== Strategy: способ оплаты =====
+        System.out.println("\n--- Strategy ---");
+        PaymentProcessor processor = new PaymentProcessor(new CashPayment());
+        processor.pay(pizzaWithExtras.getCost());
+
+        processor.setStrategy(new CardPayment());
+        processor.pay(pizzaWithExtras.getCost());
+
+        processor.setStrategy(new PromoCodePayment("WELCOME", 0.15));
+        processor.pay(pizzaWithExtras.getCost());
     }
 
     private static void print(String label, Dish dish) {
