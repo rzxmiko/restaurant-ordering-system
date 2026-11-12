@@ -1,6 +1,9 @@
+import builder.OrderBuilder;
+import builder.OrderRequest;
 import decorator.CheeseDecorator;
 import decorator.PepperoniDecorator;
 import decorator.SauceDecorator;
+import facade.RestaurantFacade;
 import factory.BurgerCreator;
 import factory.Dish;
 import factory.DishCreator;
@@ -57,6 +60,47 @@ public class Main {
 
         processor.setStrategy(new PromoCodePayment("WELCOME", 0.15));
         processor.pay(pizzaWithExtras.getCost());
+
+        // ===== Builder: пошаговая сборка заказа =====
+        System.out.println("\n--- Builder ---");
+        OrderRequest dilaraOrder = new OrderBuilder()
+                .customer("Dilara")
+                .dish(new PizzaCreator())      // Factory
+                .addCheese()                   // Decorator
+                .addPepperoni()                // Decorator
+                .payWith(new CardPayment())    // Strategy
+                .table(5)
+                .note("No onions, please")
+                .build();
+        System.out.println(dilaraOrder);
+
+        OrderRequest zhanbotaOrder = new OrderBuilder()
+                .customer("Zhanbota")
+                .dish(new BurgerCreator())
+                .addSauce()
+                .payWith(new PromoCodePayment("WELCOME", 0.15))
+                .build();                      // table not set -> takeaway
+        System.out.println(zhanbotaOrder);
+
+        OrderRequest quickOrder = new OrderBuilder()
+                .customer("Guest")
+                .dish(new PastaCreator())
+                .build();                      // defaults: cash, takeaway
+        System.out.println(quickOrder);
+
+        // Builder validation
+        try {
+            new OrderBuilder().customer("Nobody").addCheese().build();
+        } catch (IllegalStateException e) {
+            System.out.println("Builder error: " + e.getMessage());
+        }
+
+        // ===== Facade: весь процесс заказа одним вызовом =====
+        System.out.println("\n--- Facade ---");
+        RestaurantFacade restaurant = new RestaurantFacade();
+        restaurant.placeOrder(dilaraOrder);
+        restaurant.placeOrder(zhanbotaOrder);
+        restaurant.placeOrder(quickOrder);
     }
 
     private static void print(String label, Dish dish) {
