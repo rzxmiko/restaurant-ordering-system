@@ -40,7 +40,7 @@ public class Main {
         print("With extras:", burgerWithExtras);
         print("With extras:", pastaWithSauce);
 
-        // ===== Observer: статус заказа =====
+        // ===== Observer =====
         System.out.println("\n--- Observer ---");
         Order order = new Order(1, pizzaWithExtras);
         order.attach(new KitchenObserver());
@@ -50,7 +50,7 @@ public class Main {
         order.setStatus(OrderStatus.PREPARING);
         order.setStatus(OrderStatus.READY);
 
-        // ===== Strategy: способ оплаты =====
+        // ===== Strategy =====
         System.out.println("\n--- Strategy ---");
         PaymentProcessor processor = new PaymentProcessor(new CashPayment());
         processor.pay(pizzaWithExtras.getCost());
@@ -61,7 +61,7 @@ public class Main {
         processor.setStrategy(new PromoCodePayment("WELCOME", 0.15));
         processor.pay(pizzaWithExtras.getCost());
 
-        // ===== Builder: пошаговая сборка заказа =====
+        // ===== Builder =====
         System.out.println("\n--- Builder ---");
         OrderRequest dilaraOrder = new OrderBuilder()
                 .customer("Dilara")
@@ -79,23 +79,22 @@ public class Main {
                 .dish(new BurgerCreator())
                 .addSauce()
                 .payWith(new PromoCodePayment("WELCOME", 0.15))
-                .build();                      // table not set -> takeaway
+                .build();
         System.out.println(zhanbotaOrder);
 
         OrderRequest quickOrder = new OrderBuilder()
                 .customer("Guest")
                 .dish(new PastaCreator())
-                .build();                      // defaults: cash, takeaway
+                .build();
         System.out.println(quickOrder);
 
-        // Builder validation
         try {
             new OrderBuilder().customer("Nobody").addCheese().build();
         } catch (IllegalStateException e) {
             System.out.println("Builder error: " + e.getMessage());
         }
 
-        // ===== Facade: весь процесс заказа одним вызовом =====
+        // ===== Facade =====
         System.out.println("\n--- Facade ---");
         RestaurantFacade restaurant = new RestaurantFacade();
         restaurant.placeOrder(dilaraOrder);
