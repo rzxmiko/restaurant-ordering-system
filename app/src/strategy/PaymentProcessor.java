@@ -1,0 +1,20 @@
+package strategy;
+
+public class PaymentProcessor {
+    private PaymentStrategy strategy;
+
+    public PaymentProcessor(PaymentStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public void setStrategy(PaymentStrategy strategy) {
+        this.strategy = strategy;
+    }
+
+    public double pay(double amount) {
+        double total = strategy.calculateTotal(amount);
+        System.out.println("Оплата: " + strategy.getName()
+                + " | было " + amount + " KZT, итого " + total + " KZT");
+        return total;
+    }
+}
