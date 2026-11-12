@@ -6,7 +6,7 @@ public class PromoCodePayment implements PaymentStrategy {
 
     public PromoCodePayment(String code, double discount) {
         this.code = code;
-        this.discount = discount; // например 0.15
+        this.discount = discount; // e.g. 0.15
     }
 
     @Override
@@ -16,6 +16,6 @@ public class PromoCodePayment implements PaymentStrategy {
 
     @Override
     public String getName() {
-        return "Промокод " + code + " (скидка " + (int) (discount * 100) + "%)";
+        return "Promo code " + code + " (" + (int) (discount * 100) + "% discount)";
     }
 }

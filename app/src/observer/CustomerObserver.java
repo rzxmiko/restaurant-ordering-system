@@ -9,7 +9,7 @@ public class CustomerObserver implements OrderObserver {
 
     @Override
     public void update(Order order, OrderStatus status) {
-        System.out.println("[Клиент " + customerName + "] Ваш заказ #" + order.getId()
-                + " теперь: " + status.getTitle());
+        System.out.println("[Customer " + customerName + "] Your order #" + order.getId()
+                + " is now: " + status.getTitle());
     }
 }

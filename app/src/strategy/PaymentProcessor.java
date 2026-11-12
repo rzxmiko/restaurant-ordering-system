@@ -13,8 +13,8 @@ public class PaymentProcessor {
 
     public double pay(double amount) {
         double total = strategy.calculateTotal(amount);
-        System.out.println("Оплата: " + strategy.getName()
-                + " | было " + amount + " KZT, итого " + total + " KZT");
+        System.out.println("Payment: " + strategy.getName()
+                + " | was " + amount + " KZT, total " + total + " KZT");
         return total;
     }
 }

@@ -1,9 +1,9 @@
 package observer;
 
 public enum OrderStatus {
-    ACCEPTED("Принят"),
-    PREPARING("Готовится"),
-    READY("Готов");
+    ACCEPTED("Accepted"),
+    PREPARING("Preparing"),
+    READY("Ready");
 
     private final String title;
 

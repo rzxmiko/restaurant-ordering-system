@@ -8,6 +8,6 @@ public class CashPayment implements PaymentStrategy {
 
     @Override
     public String getName() {
-        return "Наличные";
+        return "Cash";
     }
 }

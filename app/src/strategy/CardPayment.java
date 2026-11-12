@@ -1,7 +1,7 @@
 package strategy;
 
 public class CardPayment implements PaymentStrategy {
-    private static final double DISCOUNT = 0.05; // 5% кэшбэк
+    private static final double DISCOUNT = 0.05; // 5% cashback
 
     @Override
     public double calculateTotal(double amount) {
@@ -10,6 +10,6 @@ public class CardPayment implements PaymentStrategy {
 
     @Override
     public String getName() {
-        return "Карта (скидка 5%)";
+        return "Card (5% discount)";
     }
 }
