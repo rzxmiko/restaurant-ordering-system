@@ -5,11 +5,11 @@ A console Java application that implements a restaurant ordering process using s
 
 ## Team
 
-| Member | Patterns |
-| --- | --- |
-| Dilara | Factory Method, Decorator |
+| Member   | Patterns |
+|----------| --- |
+| Dilara   | Factory Method, Decorator |
 | Zhanbota | Observer, Strategy |
-| [Your name] | Builder, Facade |
+| Diana    | Builder, Facade |
 
 ## Patterns
 
